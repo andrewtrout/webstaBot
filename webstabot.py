@@ -6,10 +6,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-KEYWORDS = ["modernart","artgallery","model","contemporaryart","oshitwaddup","succ","autistic"] # Tags to follow
+KEYWORDS = ["modernart","artgallery","model","contemporaryart","oshitwaddup"] # Tags to follow
 
-MY_USER = 'tnasty.png'
-MY_PASSWORD = '2bt3st3d'
+MY_USER = 'USERNAME' # Replace with your username
+MY_PASSWORD = 'PASSWORD' # Replace with your password
 
 browser = webdriver.PhantomJS(service_log_path=os.path.devnull)
 browser.set_window_size(960,1170)
