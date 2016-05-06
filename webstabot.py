@@ -76,7 +76,10 @@ def scrape():
 		    time.sleep(2)
 		    newHeight = browser.execute_script("return document.body.scrollHeight")
 
-		browser.save_screenshot('img/everything.png');
+		#Un-comment the lines below to take a screenshot of everything you are liking
+		
+		#browser.save_screenshot('img/everything_' + str(png) + '.png')
+		#png+=1
 
 		pictures = []
 
@@ -100,8 +103,11 @@ def scrape():
 				like.click()
 				print "Liked %s's picture!" % name
 				time.sleep(.1)
-				browser.save_screenshot('img/out' + str(png) + '.png');
-				png+=1
+
+				#Un-comment the lines below to take a screenshot of every liked image
+
+				#browser.save_screenshot('img/liked_img_' + str(png) + '.png')
+				#png+=1
 
 
 			browser.back()
