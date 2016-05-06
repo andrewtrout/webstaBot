@@ -9,5 +9,14 @@
 
 by Andrew Trout
 
+WebstaBot is a Instagram bot that likes users posts based on the tags you choose. This bot circumvents the new api review process by using Selenium and Phantomjs to automate the photo liking process.
 
-                                                                          
+Replace the information in webstabot.py listed below with your own.
+
+KEYWORDS = ["modernart","artgallery","model","contemporaryart","oshitwaddup"] # Tags to follow
+
+MY_USER = 'USERNAME' # Replace with your username
+MY_PASSWORD = 'PASSWORD' # Replace with your password
+
+Then run "python webstabot.py" and that's it!
+
