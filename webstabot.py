@@ -8,8 +8,8 @@ import time
 
 KEYWORDS = ["modernart","artgallery","model","contemporaryart","oshitwaddup"] # Tags to follow
 
-MY_USER = 'hanger.cool' # Replace with your username
-MY_PASSWORD = '2bt3st3d' # Replace with your password
+MY_USER = 'USERNAME' # Replace with your username
+MY_PASSWORD = 'PASSWORD' # Replace with your password
 
 options = webdriver.ChromeOptions()
 #options.add_argument('headless')
