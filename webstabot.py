@@ -8,11 +8,16 @@ import time
 
 KEYWORDS = ["modernart","artgallery","model","contemporaryart","oshitwaddup"] # Tags to follow
 
-MY_USER = 'USERNAME' # Replace with your username
-MY_PASSWORD = 'PASSWORD' # Replace with your password
+MY_USER = 'hanger.cool' # Replace with your username
+MY_PASSWORD = '2bt3st3d' # Replace with your password
 
-browser = webdriver.PhantomJS(service_log_path=os.path.devnull)
-browser.set_window_size(960,1170)
+options = webdriver.ChromeOptions()
+#options.add_argument('headless')
+options.add_argument('window-size=1200x600')
+
+browser = webdriver.Chrome('assets/chromedriver', chrome_options=options)
+#browser.set_window_size(960,1170)
+
 
 def whoMadeIt():
 	print('''
@@ -37,11 +42,11 @@ def logIn():
 
 	browser.get('https://www.instagram.com/accounts/login/')
 
-	time.sleep(3)
+	time.sleep(1)
 
-	email = browser.find_element_by_css_selector('input[placeholder="Username"]')
+	email = browser.find_element_by_css_selector('input[aria-label="Phone number, username, or email"]')
 	email.send_keys(MY_USER)
-	pw = browser.find_element_by_css_selector('input[placeholder="Password"]')
+	pw = browser.find_element_by_css_selector('input[aria-label="Password"]')
 	pw.send_keys(MY_PASSWORD, Keys.RETURN)
 
 	print "logged in successfully!"
@@ -49,74 +54,92 @@ def logIn():
 	time.sleep(1)
 
 
+
 def scrape():
 
-	png = 1
-
 	for KEYWORD in KEYWORDS:
+		#png = 1
 
 		taglink = 'https://www.instagram.com/explore/tags/%s' % KEYWORD
+		#browser.get('https://www.instagram.com/andrewtrout/saved/')
+
 		browser.get(taglink)
 
 		time.sleep(1)
 
-		print("Liking tag " + KEYWORD)
 		print("Finding images. Please wait...")
 
-		browser.execute_script("window.scrollBy(0, 1180);")
+		# browser.execute_script("window.scrollBy(0, 1180);")
 
-		loadmore = browser.find_element_by_link_text('LOAD MORE')
-		time.sleep(2)
-		loadmore.click()
+		# lastHeight = browser.execute_script("return document.body.scrollHeight")
 
-		lastHeight = browser.execute_script("return document.body.scrollHeight")
+		# for _ in range(3):
+		#     browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+		#     time.sleep(2)
+		#     newHeight = browser.execute_script("return document.body.scrollHeight")
 
-		for _ in range(20):
-		    browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-		    time.sleep(2)
-		    newHeight = browser.execute_script("return document.body.scrollHeight")
-
-		#Un-comment the lines below to take a screenshot of everything you are liking
-		
-		#browser.save_screenshot('img/everything_' + str(png) + '.png')
-		#png+=1
+		# Get scroll height
+		last_height = browser.execute_script("return document.body.scrollHeight")
 
 		pictures = []
 
-		blocks = browser.find_elements_by_css_selector('._8mlbc._t5r8b')
+		while True:
+			# Scroll down to bottom
+			browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-		for block in blocks:
-			i = block.get_attribute("href")
-			pictures.append(i)
+			# Wait to load page
+			time.sleep(5)
+
+
+			blocks = browser.find_elements_by_css_selector('.Nnq7C .v1Nh3 a')
+
+			for block in blocks:
+				i = block.get_attribute("href")
+				if i not in pictures:
+					pictures.append(i)
+
+			# Calculate new scroll height and compare with last scroll height
+			new_height = browser.execute_script("return document.body.scrollHeight")
+			if new_height == last_height:
+				break
+			last_height = new_height
 
 		for pic in pictures:
 			browser.get(pic)
-			time.sleep(.1)
+			time.sleep(1)
 
 			try:
-				browser.find_element_by_link_text('Go back to Instagram.')
-			except:
+				name = browser.find_element_by_css_selector('.FPmhX').text
+				img = browser.find_element_by_css_selector('.KL4Bh img').get_attribute('src')
+				like = browser.find_element_by_css_selector('.fr66n button')
 
-				name = browser.find_element_by_css_selector('._ook48').text
-				like = browser.find_element_by_css_selector('._345gm')
+				time.sleep(2)
 
 				like.click()
 				print "Liked %s's picture!" % name
-				time.sleep(.1)
+				time.sleep(2)
 
-				#Un-comment the lines below to take a screenshot of every liked image
+				#urllib.urlretrieve(img, 'img/videoScreenShot_' + str(name) + '_' + str(png) + '.png')
+				#png+=1
 
-				#browser.save_screenshot('img/liked_img_' + str(png) + '.png')
+			except:
+				# name = browser.find_element_by_css_selector('.FPmhX').text
+				# img = browser.find_element_by_css_selector('.KL4Bh img').get_attribute('src')
+				# like = browser.find_element_by_css_selector('.fr66n button')
+
+				# time.sleep(2)
+
+				# like.click()
+				# print "Liked %s's picture!" % name
+				# time.sleep(2)
+				print "error"
+
+				#urllib.urlretrieve(img, 'img/videoScreenShot_' + str(name) + '_' + str(png) + '.png')
 				#png+=1
 
 
-			browser.back()
-			time.sleep(.1)
 
-		print "LIKED EVERYTHING UNDER THE TAG '%s'" % KEYWORD
-
-
-
+	
 
 
 whoMadeIt()
