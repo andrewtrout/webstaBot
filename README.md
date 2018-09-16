@@ -1,5 +1,5 @@
   
-###webstaBot
+### webstaBot
 
 WebstaBot is a Instagram bot that uses Selenium to like user's posts based on the tags you choose. 
 
