@@ -12,7 +12,7 @@ MY_USER = 'USERNAME' # Replace with your username
 MY_PASSWORD = 'PASSWORD' # Replace with your password
 
 options = webdriver.ChromeOptions()
-#options.add_argument('headless')
+options.add_argument('--headless')
 options.add_argument('window-size=1200x600')
 
 browser = webdriver.Chrome('assets/chromedriver', chrome_options=options)
@@ -82,8 +82,8 @@ def scrape():
 		last_height = browser.execute_script("return document.body.scrollHeight")
 
 		pictures = []
-
-		while True:
+		counter = 0
+		while counter <= 100:
 			# Scroll down to bottom
 			browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
@@ -103,7 +103,8 @@ def scrape():
 			if new_height == last_height:
 				break
 			last_height = new_height
-
+			counter+=1
+			print counter
 		for pic in pictures:
 			browser.get(pic)
 			time.sleep(1)
