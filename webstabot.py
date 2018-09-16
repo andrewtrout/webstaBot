@@ -103,8 +103,10 @@ def scrape():
 			if new_height == last_height:
 				break
 			last_height = new_height
+			
 			counter+=1
 			print counter
+
 		for pic in pictures:
 			browser.get(pic)
 			time.sleep(1)
