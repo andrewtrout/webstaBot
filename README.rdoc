@@ -8,7 +8,7 @@ Requires Selenium as well as the Chrome driver which can be downloaded to the as
 
 ### webstabot
 
-```bash
+```
 $ latest_version=$(wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE -O -)
 $ wget https://chromedriver.storage.googleapis.com/${latest_version}/chromedriver_linux64.zip
 $ unzip chromedriver_linux64
