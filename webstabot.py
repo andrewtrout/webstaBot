@@ -83,7 +83,7 @@ def scrape():
 
 		pictures = []
 		counter = 0
-		while counter <= 100:
+		while counter < 100:
 			# Scroll down to bottom
 			browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
