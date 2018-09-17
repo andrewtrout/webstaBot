@@ -11,9 +11,9 @@ $ latest_version=$(wget https://chromedriver.storage.googleapis.com/LATEST_RELEA
 $ wget https://chromedriver.storage.googleapis.com/${latest_version}/chromedriver_linux64.zip
 $ unzip chromedriver_linux64
 $ mv chromedriver webstabot/assets/chromedriver
-$ chmod +x webstabot/assets/chromedriver
-$ chmod 755 webstabot/assets/chromedriver
-$ cd webstabot
+$ chmod +x webstaBot/assets/chromedriver
+$ chmod 755 webstaBot/assets/chromedriver
+$ cd webstaBot
 ``` 
 
 Replace the information in webstabot.py listed below with your own.
