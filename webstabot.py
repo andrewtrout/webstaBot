@@ -61,22 +61,12 @@ def scrape():
 		#png = 1
 
 		taglink = 'https://www.instagram.com/explore/tags/%s' % KEYWORD
-		#browser.get('https://www.instagram.com/andrewtrout/saved/')
 
 		browser.get(taglink)
 
 		time.sleep(1)
 
 		print("Finding images. Please wait...")
-
-		# browser.execute_script("window.scrollBy(0, 1180);")
-
-		# lastHeight = browser.execute_script("return document.body.scrollHeight")
-
-		# for _ in range(3):
-		#     browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-		#     time.sleep(2)
-		#     newHeight = browser.execute_script("return document.body.scrollHeight")
 
 		# Get scroll height
 		last_height = browser.execute_script("return document.body.scrollHeight")
@@ -89,7 +79,6 @@ def scrape():
 
 			# Wait to load page
 			time.sleep(5)
-
 
 			blocks = browser.find_elements_by_css_selector('.Nnq7C .v1Nh3 a')
 
@@ -126,19 +115,9 @@ def scrape():
 				#png+=1
 
 			except:
-				# name = browser.find_element_by_css_selector('.FPmhX').text
-				# img = browser.find_element_by_css_selector('.KL4Bh img').get_attribute('src')
-				# like = browser.find_element_by_css_selector('.fr66n button')
 
-				# time.sleep(2)
-
-				# like.click()
-				# print "Liked %s's picture!" % name
-				# time.sleep(2)
 				print "error"
 
-				#urllib.urlretrieve(img, 'img/videoScreenShot_' + str(name) + '_' + str(png) + '.png')
-				#png+=1
 
 
 
